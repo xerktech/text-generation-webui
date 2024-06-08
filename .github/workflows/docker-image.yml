@@ -20,7 +20,7 @@ jobs:
         DATE=$(date "+%Y%m%d")
         echo "DATE=$DATE" >> $GITHUB_ENV
         sed -i '/^# set umask to ensure group read \/ write at runtime/i \
-        RUN chown -R ${APP_UID}:${APP_GID} /home/app/text-generation-webui/models \&\& \
+        RUN chown -R ${APP_UID}:${APP_GID} /home/app/text-generation-webui/models \
         RUN chmod -R 775 /home/app/text-generation-webui/models \n' Dockerfile
 
     
