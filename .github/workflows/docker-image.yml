@@ -16,13 +16,16 @@ jobs:
     - name: Run pre-build commands
       run: |
         echo "Running pre-build commands"
-        ln -s docker/{nvidia/Dockerfile,.dockerignore} .
+        ln -s docker/{nvidia/Dockerfile,entrypoint.sh} .
         DATE=$(date "+%Y%m%d")
         echo "DATE=$DATE" >> $GITHUB_ENV
     
-    - name: Build and publish a Docker image for ${{ github.repository }}
-      uses: macbre/push-to-ghcr@master
-      with:
-        image_name: ${{ github.repository }}  # it will be lowercased internally
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        image_tag: ${{ env.DATE }}.${{ github.run_number }},"latest"
+    - name: Build Docker image
+      run: |
+        docker build -t ghcr.io/${{ github.repository }}:${{ env.DATE }}.${{ github.run_number }} -t ghcr.io/${{ github.repository }}:latest .
+    
+    - name: Login to GitHub Container Registry
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    
+    - name: Push Docker image
+      run: docker push ghcr.io/${{ github.repository }}:${{ env.DATE }}.${{ github.run_number }}
