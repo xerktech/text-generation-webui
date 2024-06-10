@@ -16,7 +16,7 @@ jobs:
     - name: Run pre-build commands
       run: |
         echo "Running pre-build commands"
-        ln -s xerhab/{Dockerfile,.dockerignore,entrypoint.sh} .
+        ln -s xerhab/{Dockerfile,entrypoint.sh} .
         DATE=$(date "+%Y%m%d")
         echo "DATE=$DATE" >> $GITHUB_ENV
     
