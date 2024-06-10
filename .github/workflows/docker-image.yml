@@ -16,7 +16,7 @@ jobs:
     - name: Run pre-build commands
       run: |
         echo "Running pre-build commands"
-        ln -s xerhab/{Dockerfile,entrypoint.sh} .
+        ln -s docker/{nvidia/Dockerfile,.dockerignore} .
         DATE=$(date "+%Y%m%d")
         echo "DATE=$DATE" >> $GITHUB_ENV
     
@@ -25,4 +25,4 @@ jobs:
       with:
         image_name: ${{ github.repository }}  # it will be lowercased internally
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        image_tag: ${{ env.DATE }}.${{ github.run_number }}
+        image_tag: ${{ env.DATE }}.${{ github.run_number }},"latest"
