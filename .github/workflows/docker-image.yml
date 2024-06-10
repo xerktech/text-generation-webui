@@ -16,7 +16,7 @@ jobs:
     - name: Run pre-build commands
       run: |
         echo "Running pre-build commands"
-        ln -s docker/{nvidia/Dockerfile,entrypoint.sh} .
+        ln -s docker/{nvidia/Dockerfile,.dockerignore} .
         DATE=$(date "+%Y%m%d")
         echo "DATE=$DATE" >> $GITHUB_ENV
     
